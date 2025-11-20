@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      String   @default("USER")
+  banned    Boolean  @default(false)
+  rating    Float    @default(0)
+  createdAt DateTime @default(now())
+  listings  Listing[] @relation("sellerListings")
+  messagesFrom Message[] @relation("from")
+  messagesTo   Message[] @relation("to")
+}
+
+model Listing {
+  id          String   @id @default(cuid())
+  title       String
+  brand       String
+  model       String
+  description String?
+  price       Float
+  condition   String
+  location    String?
+  images      String[] @default([])
+  seller      User     @relation("sellerListings", fields:[sellerId], references:[id])
+  sellerId    String
+  createdAt   DateTime @default(now())
+  flags       Flag[]
+}
+
+model Message {
+  id String @id @default(cuid())
+  from User @relation("from", fields:[fromId], references:[id])
+  fromId String
+  to User @relation("to", fields:[toId], references:[id])
+  toId String
+  body String
+  createdAt DateTime @default(now())
+}
+
+model Flag {
+  id String @id @default(cuid())
+  listing Listing @relation(fields:[listingId], references:[id])
+  listingId String
+  reason String
+  createdAt DateTime @default(now())
+}
