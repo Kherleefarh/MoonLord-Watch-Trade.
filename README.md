@@ -18,3 +18,4 @@ Seeded admin credentials (change after deploy):
 - Password: MoonLord@2025
 
 See `backend/.env.example` and `frontend/README.md` for setup instructions.
+update
