@@ -1,0 +1,32 @@
+{
+  "name": "moonlord-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --watch src --exec node src/index.js",
+    "start": "node src/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "cookie": "^0.5.0",
+    "@prisma/client": "^5.10.1",
+    "prisma": "^5.10.1",
+    "multer": "^1.4.5-lts.1",
+    "cloudinary": "^1.33.0",
+    "stripe": "^12.12.0",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.7.0",
+    "uuid": "^9.0.0",
+    "streamifier": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
