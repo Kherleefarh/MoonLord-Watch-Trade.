@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: moonlord-backend
+    env: node
+    plan: free
+    buildCommand: "npm install --prefix backend"
+    startCommand: "npm run start --prefix backend"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: moonlord-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: "admin@moonlord.com"
+      - key: ADMIN_PASSWORD
+        value: "MoonLord@2025"
+    autoDeploy: true
+
+  - type: web
+    name: moonlord-frontend
+    env: static
+    buildCommand: "npm install --prefix frontend && npm run build --prefix frontend"
+    staticPublishPath: "frontend/out"
+    autoDeploy: true
+
+databases:
+  - name: moonlord-db
+    plan: free
